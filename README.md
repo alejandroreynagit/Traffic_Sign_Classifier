@@ -1,31 +1,16 @@
-## Project: Build a Traffic Sign Recognition Program
+# Traffic Sign Recognition Program
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
-Overview
+## Writeup - Daniel Alejandro Reyna Torres
+
+In this project, goal is to write a software pipeline to identify and recognise traffic signs.
+
 ---
-In this project, you will use what you've learned about deep neural networks and convolutional neural networks to classify traffic signs. You will train and validate a model so it can classify traffic sign images using the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset). After the model is trained, you will then try out your model on images of German traffic signs that you find on the web.
 
-We have included an Ipython notebook that contains further instructions 
-and starter code. Be sure to download the [Ipython notebook](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb). 
+## The Project
 
-We also want you to create a detailed writeup of the project. Check out the [writeup template](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup_template.md) for this project and use it as a starting point for creating your own writeup. The writeup can be either a markdown file or a pdf document.
-
-To meet specifications, the project will require submitting three files: 
-* the Ipython notebook with the code
-* the code exported as an html file
-* a writeup report either as a markdown or pdf file 
-
-Creating a Great Writeup
----
-A great writeup should include the [rubric points](https://review.udacity.com/#!/rubrics/481/view) as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
-
-All that said, please be concise!  We're not looking for you to write a book here, just a brief description of how you passed each rubric point, and references to the relevant code :). 
-
-You're not required to use markdown for your writeup.  If you use another method please just submit a pdf of your writeup.
-
-The Project
----
 The goals / steps of this project are the following:
+
 * Load the data set
 * Explore, summarize and visualize the data set
 * Design, train and test a model architecture
@@ -33,26 +18,96 @@ The goals / steps of this project are the following:
 * Analyze the softmax probabilities of the new images
 * Summarize the results with a written report
 
-### Dependencies
-This lab requires:
+---
 
-* [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit)
+## Data Set Summary & Exploration
 
-The lab environment can be created with CarND Term1 Starter Kit. Click [here](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) for the details.
+The very fist step in every Machine Learning task is to load and understand the data. The data set corresponds to traffic signs from the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset). I used the numpy and pandas libraries to calculate summary statistics of the traffic signs data set:
 
-### Dataset and Repository
 
-1. Download the data set. The classroom has a link to the data set in the "Project Instructions" content. This is a pickled dataset in which we've already resized the images to 32x32. It contains a training, validation and test set.
-2. Clone the project, which contains the Ipython notebook and the writeup template.
-```sh
-git clone https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project
-cd CarND-Traffic-Sign-Classifier-Project
-jupyter notebook Traffic_Sign_Classifier.ipynb
-```
+Above is an **exploratory visualization** of the training set. Summary of data is:
 
-### Requirements for Submission
-Follow the instructions in the `Traffic_Sign_Classifier.ipynb` notebook and write the project report using the writeup template as a guide, `writeup_template.md`. Submit the project code and writeup document.
+- Number of training examples = 34799
+- Number of testing examples = 12630
+- Number of validating examples = 4410
+- Image data shape = (32, 32, 3)
+- Number of classes = 43
 
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
+Here is an exploratory visualization of the data set. It is a bar chart showing how the amount of samples for each traffic sign is distributed. 
 
+![dataset_dist]
+
+If we take a closer loog on the data set we can see the following: 
+
+![class_freq]
+
+Traffic signs with most samples:
+- Speed limit (50km/h) - 2010 samples
+- Speed limit (30km/h) - 1980 samples
+- Yield - 1920 samples
+- Priority Road - 1890 samples
+- Keep Right - 1860 samples
+
+Traffic signs with fewer samples:
+- Speed limit (20km/h) - 180 samples
+- Dangerous curve to the left - 180 samples
+- Go straight or left - 180 samples
+- Pedestrians - 210 samples
+- End of all speed and passing limits - 210 samples
+
+It can be seen that there is an uneven number of samples for each traffic sign. Between the sign with most samples and the one with less samples, there are **1830** samples! This is something to consider in the design of the classification pipeline since this class imbalance could bring wrong classification results because the model would be reflecting the underlying class distribution.
+
+Here are some samples from the data set.
+![dataset]
+
+Now, let's deep dive into our pipeline for traffic sign classification!
+
+---
+
+## Design and Test a Model Architecture
+
+### Pre-process the Data Set
+
+As a first step, I decided to convert the images to grayscale because it reduces model complexity and also because at the end, patterns, brightness, contrast, shape, contours shadows, and other image properties, are well captured by gray images without extra costs. Of course, use of coloured images will depend mainly on the task we want to solve,whether we need the extra information provided by the RGB channles or not will be part of the approximation.
+
+
+
+### Model Architecture
+
+Training with coloured images and using the original LeNet architecture introduced by LeCun et al. in their 1998. This yield to an accuracy of 88%. For this reason I decided to start with the basics, data set pre-processing.
+Model hyperparameters:
+
+EPOCHS = 10
+BATCH_SIZE = 128
+n_channels = 3 # For coloured images
+
+
+
+### Model Training
+
+### Solution Approach
+
+## Test a Model on New Images
+
+Here's a [link to my video result](output_images/project_video_out.mp4). 
+The folder `output_images` contains examples of the output from each stage of the advanced lane detection pipeline, including videos.
+
+## (Optional) Visualizing the Neural Network
+
+---
+
+## Discussion
+
+There are som drawbacks! 
+This project has been challenging and of course very interesting. Some exploration and update can be performed in the thresholdins process, thinking on combining different filters. For this project I selected the HLS to work with, but a combination might yield in better results during lane estimation.
+
+Also, the warping stage could be dynamic instead of fixed tuned, we have to somehow ensure straight lines! Moreover, under some scenarios (on challenging videos) the current version lane detection is not 100% accurate, there are bigger shadows, cars, irregular street conditions, etc. to be highly considered. These conditions can be tackled by storing information related to previous video frames, thus in cases where lanes jump drastically or get lost, they can be validated by using past references, mean values, etc., making the detection cleaner.
+
+Thank you for reading this report.
+
+_Daniel_
+
+
+[class_freq]: readme_images/Class_Freq.png
+[dataset_dist]: readme_images/Traffic_Signs_Distribution.png
+[dataset]: readme_images/Explore_DS.png
