@@ -37,7 +37,7 @@ Here is an exploratory visualization of the data set. It is a bar chart showing 
 
 ![dataset_dist]
 
-If we take a closer loog on the data set we can see the following: 
+If we take a closer look on the data set we can see the following: 
 
 ![class_freq]
 
@@ -68,7 +68,7 @@ Now, let's deep dive into our pipeline for traffic sign classification!
 
 ### Pre-process the Data Set
 
-As a first step, I decided to convert the images to grayscale because it reduces model complexity and also because at the end, patterns, brightness, contrast, shape, contours shadows, and other image properties, are well captured by gray images without extra costs. Of course, use of coloured images will depend mainly on the task we want to solve,whether we need the extra information provided by the RGB channles or not will be part of the approximation.
+As a first step, I decided to convert the images to grayscale because it reduces model complexity and also because at the end, patterns, brightness, contrast, shape, contours, shadows, and other image properties, are well captured by gray images without extra costs. Of course, use of coloured images will depend mainly on the task we want to solve,whether we need the extra information provided by the RGB channels or not will be part of the approximation.
 
 Luma represents the brightness in an image ("black-and-white" of an image).
 Althought Luma can be computed in different manners, depending on the sensibility, the Luma component (gray scale transformation), based on luminance considering different human perception/sensibility towards RGB colors, for this project is computed as:
@@ -102,7 +102,7 @@ Architecture of LeNel-5:
 ### Model Training
 
 To train the model, at the very beginning, I set the learning rate to 0.001, a batch size of 128 and 50 EPOCHS. This achieved an accuracy about 87% using coloured images.
-The final hyperparameters used for training were:
+The final hyperparameters, reaching an accuracy of 93.7% were:
 
 - Batch size: 100
 - Epochs: 100
