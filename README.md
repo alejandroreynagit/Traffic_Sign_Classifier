@@ -108,6 +108,6 @@ Thank you for reading this report.
 _Daniel_
 
 
-[class_freq]: readme_images/Class_Freq.png
-[dataset_dist]: readme_images/Traffic_Signs_Distribution.png
-[dataset]: readme_images/Explore_DS.png
+[class_freq]: report_images/Class_Freq.png
+[dataset_dist]: report_images/Traffic_Signs_Distribution.png
+[dataset]: report_images/Explore_DS.png
